@@ -3,6 +3,7 @@ Credit:
 Code By:
 - Kynan (https://github.com/naya1504)
 - Amang (https://github.com/amanqs)
+- Wildan (https://github.com/Wildan2024)
 """
 
 # Credits by : https://t.me/xtsea
