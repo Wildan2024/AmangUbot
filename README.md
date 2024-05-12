@@ -13,7 +13,7 @@
 </div>
 
 
-## Disarankan Mengambil String Session Pyrogram v2 di https://t.me/AmangRobot
+## Disarankan Mengambil String Session Pyrogram v2 di https://t.me/dan_stringbot
 
 ## Credit 💖
 
