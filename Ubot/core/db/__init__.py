@@ -3,6 +3,7 @@ Credit:
 Code By:
 - Kynan (https://github.com/naya1504)
 - Amang (https://github.com/amanqs)
+- Wildan (https://github.com/Wildan2024)
 """
 
 from pyrogram.filters import chat
@@ -53,8 +54,8 @@ async def buat_log(bot):
         botlog_chat_id = user_data.get("bot_log_group_id")
 
     if not user_data or not botlog_chat_id:
-        group_name = 'AmangUserbot Logs'
-        group_description = 'Jangan Hapus Atau Keluar Dari Grup Ini\n\nCreated By @amwangsupport.\nJika menemukan kendala atau ingin menanyakan sesuatu\nHubungi : @amwang atau bisa ke @amwangsupport.'
+        group_name = 'Dan Userbot Logs'
+        group_description = 'Jangan Hapus Atau Keluar Dari Grup Ini\n\nCreated By @Disney_storeDan.\nJika menemukan kendala atau ingin menanyakan sesuatu\nHubungi : @mhmdwldnnnn atau bisa ke @suportdanuserbot.' 
         group = await bot.create_supergroup(group_name, group_description)
         botlog_chat_id = group.id
         message_text = 'Grup Log Berhasil Dibuat,\nKetik `setlog` untuk menentapkan grup log ini sebagai tempat log bot\nJangan Hapus Atau Keluar Dari Grup Ini.\n\n**Notes** : Ketik .ping atau .alive untuk mengecek apakah userbot'
