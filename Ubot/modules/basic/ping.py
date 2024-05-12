@@ -48,7 +48,7 @@ class WWW:
 
     NearestDC = "Country: `{}`\n" "Nearest Datacenter: `{}`\n" "This Datacenter: `{}`"
     
-absen = [
+kopi = [
     "**Hadir Mas** 😍",
     "**Mmuaahh** 😘",
     "**Hadir** 🤗",
