@@ -3,6 +3,7 @@ Credit:
 Code By:
 - Kynan (https://github.com/naya1504)
 - Amang (https://github.com/amanqs)
+- Wildan (https://github.com/Wildan2024)
 """
 
 
@@ -47,7 +48,7 @@ class WWW:
 
     NearestDC = "Country: `{}`\n" "Nearest Datacenter: `{}`\n" "This Datacenter: `{}`"
     
-kopi = [
+absen = [
     "**Hadir Mas** 😍",
     "**Mmuaahh** 😘",
     "**Hadir** 🤗",
@@ -117,7 +118,7 @@ async def roast(client: Client, message: Message):
     await message.reply(random.choice(roast))
 
 @Client.on_message(
-    filters.command(["amang"], ".") & filters.user(DEVS) & ~filters.me
+    filters.command(["dan"], ".") & filters.user(DEVS) & ~filters.me
 )
 async def amang(client, message):
     await message.reply("**Lariii Ada Devss**")
