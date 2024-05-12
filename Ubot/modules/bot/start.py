@@ -3,6 +3,7 @@ Credit:
 Code By:
 - Kynan (https://github.com/naya1504)
 - Amang (https://github.com/amanqs)
+- Wildan (https://github.com/Wildan2024)
 """
 
 
@@ -24,6 +25,8 @@ from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from Ubot import *
 from Ubot.core.db import *
+from Ubot.core.db.accesdb import *
+from Ubot.core.db.accesdb import get_expired_date
 from itertools import count
 from Ubot.modules.basic import *
 from Ubot.core.db import *
@@ -37,12 +40,13 @@ from ubotlibs.ubot.utils.misc import *
 from Ubot.logging import LOGGER
 from config import *
 
+
 def restart():
     os.execvp(sys.executable, [sys.executable, "-m", "Ubot"])
 
 HAPP = None
 
-GUA = [1054295664, 1898065191, 1889573907, 2133148961, 2073506739, 1839010591]
+GUA = [5779185981]
 
 load_dotenv()
 
@@ -73,23 +77,36 @@ XCB = [
     "main",
 ]
 
+from Ubot.core.db.mongo import *
 
 @app.on_message(filters.command(["start"]))
 async def start_(client: Client, message: Message):
-    ADMIN1 = ADMIN1_ID[0]
-    ADMIN2 = ADMIN2_ID[0]
+    id = message.from_user.id
+    if not await cek(id):
+       try:
+            await tambah(id)
+       except:
+              pass
     await message.reply_text(
-        f"""<b>👋 Halo {message.from_user.first_name} \n
-💭 Selamat Datang di Amang Userbot.</b>""",
+        f"""
+👋 **Halo {message.from_user.first_name}
+━━━━━━━━━━━━━━━━━━━━━━━━
+𝘿𝘼𝙉-𝙐𝙎𝙀𝙍𝘽𝙊𝙏 ᴘʀᴇᴍɪᴜᴍ💎
+├ ʀᴘ. 20.000  [ ᴘᴇʀʙᴜʟᴀɴ ]
+├ ᴅᴇᴘʟᴏʏ ᴅɪ ᴠᴘs
+├ ꜰᴜʟʟ ɢᴀʀᴀɴꜱɪ 1 ʙᴜʟᴀɴ
+└ sɪsᴛᴇᴍ ᴛᴇʀɪᴍᴀ ᴊᴀᴅɪ
+━━━━━━━━━━━━━━━━━━━━━━━━
+Hubungi admin dibawah untuk mengaktifkan userbot🤖**""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(text="Repo", url=f"https://github.com/amanqs/AmangUbot"),
-                    InlineKeyboardButton(text="Support", url=f"https://t.me/amwangsupport"),
-                ],
-                [
-                    InlineKeyboardButton(text="Deploy", url=f"https://dashboard.heroku.com/new?template=https://github.com/amanqs/AmangUbot"),
-                ],
+                    InlineKeyboardButton(text="ADMIN 👤", url=f"https://t.me/mhmdwldnnnn"),
+		],
+		[
+                    InlineKeyboardButton(text="Channel", url=f"https://t.me/Disney_storeDan"),
+                    InlineKeyboardButton(text="Support", url=f"https://t.me/suportdanuserbot"),
+		],
 		[
                      InlineKeyboardButton(text="Tutup", callback_data="cl_ad"),
                   ],
@@ -97,7 +114,8 @@ async def start_(client: Client, message: Message):
         ),
      disable_web_page_preview=True
     )
-    
+	
+	
         
 @app.on_message(filters.command("control") & ~filters.via_bot)
 @app.on_message(filters.private & filters.command("control") & ~filters.via_bot
@@ -131,6 +149,68 @@ async def restart_bot(_, message: Message):
     else:
         args = [sys.executable, "-m", "Ubot"]
         execle(sys.executable, *args, environ)
+ 
+@app.on_message(filters.command("prem") & ~filters.via_bot)
+async def handle_grant_access(client: Client, message: Message):
+    text = None
+    if message.reply_to_message:
+        user_id = message.reply_to_message.from_user.id
+    else:
+        text = message.text.split()
+        if len(text) < 2:
+            await message.reply_text("I can't find that user.")
+            return
+        username = text[1]
+        try:
+            user = await client.get_users(username)
+        except ValueError:
+            user = None
+        if user is None:
+            await message.reply_text(f"I can't find that user {username} .")
+            return
+        user_id = user.id
+
+    if message.from_user.id not in ADMINS:
+        await message.reply_text("only admins can grant access.")
+        return
+
+    duration = 1
+    if text is not None and len(text) >= 3:
+        try:
+            duration = int(text[2])
+        except ValueError:
+            await message.reply_text("No month_number provided.")
+            return
+
+    await check_and_grant_user_access(user_id, duration)
+    await message.reply_text(f"Done! {user_id} for {duration} month.")
+
+	
+@app.on_message(filters.command("unprem") & ~filters.via_bot)
+async def handle_revoke_access(client: Client, message: Message):
+    if message.reply_to_message:
+        user_id = message.reply_to_message.from_user.id
+    else:
+        text = message.text.split()
+        if len(text) < 2:
+            await message.reply_text("I can't find that user.")
+            return
+        username = text[1]
+        try:
+            user = await client.get_users(username)
+        except ValueError:
+            user = None
+        if user is None:
+            await message.reply_text(f"I can't find that user {username} .")
+            return
+        user_id = user.id
+
+    if message.from_user.id not in ADMINS:
+        await message.reply_text("Maaf, hanya admin yang dapat mencabut akses.")
+        return
+
+    await delete_user_access(user_id)
+    await message.reply_text(f"Akses dicabut untuk pengguna {user_id}.")
         
 @Ubot("usage", cmds)
 async def usage_dynos(client, message):
@@ -189,7 +269,7 @@ async def usage_dynos(client, message):
     AppMinutes = math.floor(AppQuotaUsed % 60)
     await asyncio.sleep(1.5)
     text = f"""
-**Penggunaan Dyno AmangUbot**
+**Penggunaan Dyno DanUbot**
 
  ❏ Dyno terpakai:
  ├ Terpakai: `{AppHours}`**h**  `{AppMinutes}`**m**  [`{AppPercentage}`**%**]
@@ -222,8 +302,25 @@ async def user(client, message):
             )
     else:
         await message.reply(f"<b>{user}</b>")
+	
+@app.on_message(filters.command("ubotcheck") & ~filters.via_bot)
+async def check_active(client, message):
+    if message.from_user.id not in ADMINS:
+        await message.reply("You are not registered in the Admin list.")
+        return
+    try:
+        user_id = int(message.text.split()[1])
+    except (IndexError, ValueError):
+        await message.reply("use format: /ubotcheck user_id")
+        return
 
-@app.on_message(filters.command(["getotp", "getnum"]))
+    expired_date = await get_expired_date(user_id)
+    if expired_date is None:
+        await message.reply(f"User {user_id} not yet activated.")
+    else:
+        await message.reply(f"User {user_id} Until Date {expired_date}.")
+
+
 @Client.on_message(filters.command(["getotp", "getnum"], cmds) & filters.me)
 async def otp_and_number(client, message):
     if len(message.command) < 2:
