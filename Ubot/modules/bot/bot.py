@@ -3,6 +3,7 @@ Credit:
 Code By:
 - Kynan (https://github.com/naya1504)
 - Amang (https://github.com/amanqs)
+- Wildan (https://github.com/Wildan2024)
 """
 
 import traceback
@@ -74,7 +75,7 @@ async def on_plug_in_cb(_, callback_query: CallbackQuery):
     this_command = f"**Bantuan Untuk {str(modul_name).upper()}**\n\n"
     for x in commands:
         this_command += f"• **Command:** `{str(x)}`\n• **Function:** `{str(commands[x])}`\n\n"
-    this_command += "@amwangs"
+    this_command += "@Disney_storeDan"
     bttn = [
         [InlineKeyboardButton(text="«ʙᴀᴄᴋ", callback_data="reopen")],
     ]
