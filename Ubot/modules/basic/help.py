@@ -3,6 +3,7 @@ Credit:
 Code By:
 - Kynan (https://github.com/naya1504)
 - Amang (https://github.com/amanqs)
+- Wildan (https://github.com/Wildan2024)
 """
 
 import asyncio
@@ -65,7 +66,7 @@ async def module_help(client: Client, message: Message):
             this_command = f"**Bantuan {str(help_arg).upper()}**\n\n"
             for x in commands:
                 this_command += f"๏ **Keterangan:** `{str(commands[x])}`\n\n"
-            this_command += "@amwangs"
+            this_command += "@Disney_storeDan"
             await edit_or_reply(
                 message, this_command, parse_mode=enums.ParseMode.MARKDOWN
             )
