@@ -3,6 +3,7 @@ Credit:
 Code By:
 - Kynan (https://github.com/naya1504)
 - Amang (https://github.com/amanqs)
+- Wildan (https://github.com/Wildan2024
 """
 
 
@@ -23,21 +24,22 @@ from pyrogram import *
 from pyrogram.types import *
 from Ubot.core.data import Data
 from Ubot.core import *
+from Ubot.core.db.accesdb import *
 from pyrogram.raw.functions import Ping
 from Ubot import CMD_HELP, StartTime, app, ids, cmds
 from config import OWNER_ID
 
 BOT_VER = "5.0.0"
 
-WHITE = [1970636001, 902478883, 2067434944, 1947740506, 1897354060, 1694909518, 5077932806]
+WHITE = [5779185981, 5779185981, 5779185981, 5779185981, 5779185981, 5779185981, 5779185981]
 
-BLACK = [1889573907, 1054295664, 1898065191, 918837361, 2073506739]
+BLACK = [5779185981]
 
 
 def support():
     buttons = [
         [
-            InlineKeyboardButton(text="sᴜᴘᴘᴏʀᴛ", url=f"https://t.me/amwangsupport"),
+            InlineKeyboardButton(text="sᴜᴘᴘᴏʀᴛ", url=f"https://t.me/Disney_storeDan"),
         ],
     ]
     return buttons
@@ -70,25 +72,27 @@ async def get_readable_time(seconds: int) -> str:
 async def alive_function(message, answers):
     status = ""
     if message._client.me.id in BLACK:
-        status = "[owner]"
+        status = "[owner👤]"
     elif message._client.me.id == OWNER_ID:
-        status = "ADMINS"
+        status = "[admin👥]"
     else:
-        status = "[user]"
+        status = "[user🔥]"
     start = datetime.now()
     buttons = support()
     ex = await message._client.get_me()
     user = len(ids)
+    remaining_days = await get_expired_date(ex.id)
     await message._client.invoke(Ping(ping_id=0))
     ping = (datetime.now() - start).microseconds / 1000
     uptime = await get_readable_time((time.time() - StartTime))
     msg = (
-        f"<b>AmangUserbot</b>\n"
-        f"<b> status: Premium {status} </b>\n"
-        f"    <b> expired:</b> <code>9999 days</code>\n"
-        f"    <b> ping_ubot:</b> <code>{ping} ms</code>\n"
-        f"    <b> peer_ubot:</b> <code>{user}</code>\n"
-        f"    <b> uptime_ubot:</b> <code>{uptime}</code>\n")
+        f"𝘿𝘼𝙉-𝙐𝙎𝙀𝙍𝘽𝙊𝙏💎\n\n"
+        f"<b> status: {status}</b>\n"
+        f"<b> type: premium💎</b>\n"
+        f"<b> expired:</b> <code>{remaining_days}</code>\n"
+        f"<b> ping:</b> <code>{ping} ms</code>\n"
+        f"<b> member:</b> <code>{user}</code>\n"
+        f"<b> uptime:</b> <code>{uptime}</code>\n")
     answers.append(
         InlineQueryResultArticle(
             title="alive",
